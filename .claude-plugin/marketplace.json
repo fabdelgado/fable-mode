@@ -1,0 +1,13 @@
+{
+  "name": "fable-mode",
+  "owner": {
+    "name": "Fabian Delgado"
+  },
+  "plugins": [
+    {
+      "name": "fable-mode",
+      "source": "./",
+      "description": "Emulates the reasoning habits of Claude Fable 5: plan before executing, evidence over memory, self-refutation, iterative verification until it passes, lead with the result, and scope discipline."
+    }
+  ]
+}
