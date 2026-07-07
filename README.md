@@ -45,6 +45,12 @@ La configuración es en capas, y cada capa tiene un costo distinto en tokens:
 
 El presupuesto de razonamiento es un recurso: gastalo según lo que cuesta equivocarse en esa tarea, no por costumbre.
 
+## Validación A/B contra Fable real
+
+Este skill no es teórico: se iteró contra salidas reales de Fable 5 hasta converger. Metodología: cada tarea de prueba la corrieron dos agentes en contextos independientes — Opus 4.8 con el skill como instrucciones obligatorias vs. Fable 5 nativo sin instrucciones — y se compararon las salidas con una rúbrica de 8 criterios de comportamiento (apertura con el resultado, verificación con evidencia, disciplina de alcance, recomendación única, calibración de forma, supuestos marcados, prosa sin narración de protocolo).
+
+Tras 3 rondas de iteración (4 brechas detectadas y corregidas), la corrida final de validación dio **10 de 10 pares convergidos** en tareas de debugging, decisiones técnicas, escritura ejecutiva, pushback anti-complacencia y trampas de alcance. Detalle completo, historial de iteración y limitaciones honestas de la evaluación (no es un benchmark ciego; residual de +30-40% de largo en decisiones abiertas) en [`eval/README.md`](eval/README.md).
+
 ## Qué esperar (y qué no)
 
 Este skill codifica **disciplina, no inteligencia extra**. En problemas de frontera, un modelo más capaz sin hábitos le sigue ganando a uno menos capaz con ellos. Lo que la disciplina compra es otra cosa: elimina las fallas evitables — la afirmación sin verificar, el "terminado" que no se probó, el alcance que se infla solo — y esas fallas son la mayoría de los errores del trabajo diario. Además, a diferencia de una suscripción, los hábitos viajan con vos al próximo modelo.
@@ -68,6 +74,8 @@ curl -fsSL https://raw.githubusercontent.com/fabdelgado/fable-mode/main/install.
 **Or as a native plugin:** `/plugin marketplace add fabdelgado/fable-mode` → `/plugin install fable-mode@fable-mode`, then paste [`templates/CLAUDE-rules.md`](templates/CLAUDE-rules.md) into your `~/.claude/CLAUDE.md`.
 
 Trigger with `/fable-mode` or by saying "fable mode". What to expect: this encodes discipline, not extra intelligence — it eliminates the avoidable failures (unverified claims, false completions, scope drift) that make up most everyday errors, and the habits transfer to whatever model you run next.
+
+**A/B validated:** the skill was iterated against native Fable 5 outputs until convergence — Opus 4.8 + skill vs. Fable 5, same prompts, independent contexts, 8-criterion behavioral rubric. Final validation: **10/10 task pairs converged** across debugging, technical decisions, executive writing, pushback, and scope traps. Method, iteration history, and honest limitations in [`eval/README.md`](eval/README.md).
 
 ## Licencia
 
