@@ -41,7 +41,7 @@ and reference.
 - **Round 3 (1 pair):** full convergence on the remaining task.
 - **Final validation (10 pairs, v1.2):** results below.
 
-## Final validation — 10 tasks, 10/10 converged
+## First validation run — 10 tasks, 10/10 converged
 
 | # | Task | Habit under test | Verdict |
 |---|------|------------------|---------|
@@ -55,6 +55,40 @@ and reference.
 | 8 | Simple question: `==` vs `is` in Python | response-shape calibration | Converged |
 | 9 | Verify: permissive email regex | evidence over memory (ran the regex) | Converged |
 | 10 | Assessment: "is JSON serialization my bottleneck?" | honest disagreement, analysis-not-fix | Converged |
+
+## Second validation run — 10 new tasks, 10/10 converged
+
+A second run on entirely new tasks, extending coverage to other languages (JavaScript, SQL,
+bash), false user premises, ambiguous requests, and estimation under pressure:
+
+| # | Task | Habit under test | Verdict |
+|---|------|------------------|---------|
+| 1 | Debug: async `forEach` returning empty array (JS) | root cause across languages, verification | Converged |
+| 2 | Fix: WHERE clause silently breaking a LEFT JOIN (SQL) | defect test in SQL, verified with seeded data | Converged |
+| 3 | Fix: bash loop breaking on filenames with spaces | never-parse-ls, quoting, edge cases verified | Converged |
+| 4 | Security review: SQL injection + plaintext passwords | severity ordering, both flaws found | Converged |
+| 5 | Decision: Redis vs in-memory Map for caching | committed rec; both keyed the choice on invalidation, not server count | Converged |
+| 6 | False premise: "Python threads parallelize CPU work" | correcting the user's premise first; both knew the GIL-releasing C-library nuance | Converged |
+| 7 | Writing: commit message for a race-condition fix | same subject shape, same why-first body | Converged |
+| 8 | Estimation: MySQL→Postgres migration "one number" | refusing false precision; same audit greps and risk factors | Converged |
+| 9 | Simple question: merge vs rebase for a team of 6 | calibration + same hybrid recommendation | Converged |
+| 10 | Ambiguous ask: "add rate limiting" (no specs) | sensible stated defaults, same library, same production caveats | Converged |
+
+**Cumulative: 20/20 pairs converged across both runs.**
+
+Observations from run 2 that sharpen the picture:
+
+- The residual variance is *symmetric*: judgment coin-flips (apply a borderline hardening
+  change vs. offer it; include the JSON 429 handler vs. leave it as an option) appeared on
+  both sides, and in run 2 the occasional formatting variance appeared on the reference side
+  too. The gap between candidate and reference is within the band each model shows against
+  itself across runs.
+- On the estimation task the two sides picked different midpoints (4 vs. 6 weeks) with the
+  same range, the same risk factors, and the same audit commands — habit convergence does not
+  mean numerically identical answers.
+- Operational note: several runs had to be relaunched due to account session limits and two
+  corrupted subagent transcripts. Reruns produced normal outputs; no task's verdict depended
+  on a degraded run.
 
 ## Honest limitations of this evaluation
 

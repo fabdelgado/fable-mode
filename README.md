@@ -49,7 +49,7 @@ El presupuesto de razonamiento es un recurso: gastalo según lo que cuesta equiv
 
 Este skill no es teórico: se iteró contra salidas reales de Fable 5 hasta converger. Metodología: cada tarea de prueba la corrieron dos agentes en contextos independientes — Opus 4.8 con el skill como instrucciones obligatorias vs. Fable 5 nativo sin instrucciones — y se compararon las salidas con una rúbrica de 8 criterios de comportamiento (apertura con el resultado, verificación con evidencia, disciplina de alcance, recomendación única, calibración de forma, supuestos marcados, prosa sin narración de protocolo).
 
-Tras 3 rondas de iteración (4 brechas detectadas y corregidas), la corrida final de validación dio **10 de 10 pares convergidos** en tareas de debugging, decisiones técnicas, escritura ejecutiva, pushback anti-complacencia y trampas de alcance. Detalle completo, historial de iteración y limitaciones honestas de la evaluación (no es un benchmark ciego; residual de +30-40% de largo en decisiones abiertas) en [`eval/README.md`](eval/README.md).
+Tras 3 rondas de iteración (4 brechas detectadas y corregidas), dos corridas de validación independientes — 20 tareas en total, cubriendo debugging en Python/JavaScript/SQL/bash, decisiones técnicas, seguridad, premisas falsas, estimación bajo presión, escritura ejecutiva y trampas de alcance — dieron **20 de 20 pares convergidos**. Detalle completo, historial de iteración y limitaciones honestas de la evaluación (no es un benchmark ciego; la varianza residual es simétrica entre ambos lados) en [`eval/README.md`](eval/README.md).
 
 ## Qué esperar (y qué no)
 
@@ -75,7 +75,7 @@ curl -fsSL https://raw.githubusercontent.com/fabdelgado/fable-mode/main/install.
 
 Trigger with `/fable-mode` or by saying "fable mode". What to expect: this encodes discipline, not extra intelligence — it eliminates the avoidable failures (unverified claims, false completions, scope drift) that make up most everyday errors, and the habits transfer to whatever model you run next.
 
-**A/B validated:** the skill was iterated against native Fable 5 outputs until convergence — Opus 4.8 + skill vs. Fable 5, same prompts, independent contexts, 8-criterion behavioral rubric. Final validation: **10/10 task pairs converged** across debugging, technical decisions, executive writing, pushback, and scope traps. Method, iteration history, and honest limitations in [`eval/README.md`](eval/README.md).
+**A/B validated:** the skill was iterated against native Fable 5 outputs until convergence — Opus 4.8 + skill vs. Fable 5, same prompts, independent contexts, 8-criterion behavioral rubric. Two validation runs on 20 distinct tasks (Python/JS/SQL/bash debugging, technical decisions, security review, false premises, estimation, executive writing, scope traps): **20/20 task pairs converged**. Method, iteration history, and honest limitations in [`eval/README.md`](eval/README.md).
 
 ## Licencia
 
