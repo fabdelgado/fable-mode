@@ -4,6 +4,8 @@
 
 En julio de 2026, antes de que Fable 5 pasara a pago por uso, le pedimos una cosa: que documentara su propia forma de trabajar — el orden de operaciones detrás de sus respuestas, sus criterios para dar algo por terminado y los errores que se prohíbe a sí mismo. Este repo empaqueta ese autorretrato como un skill instalable, para que cualquier modelo (Opus 4.8 incluido) ejecute la misma disciplina.
 
+📖 **La historia completa del experimento** — cómo se extrajo el playbook, las rondas de iteración A/B y los resultados de la evaluación ciega — está contada en el blog: [Cloné los hábitos de Fable 5 en un skill open source](https://ketoro.com.uy/blog/clonar-fable-5-habitos-skill/).
+
 **Qué instala:**
 
 - **Skill `fable-mode`** — el playbook completo: protocolo de 6 fases (encuadre → plan → ejecución → auto-refutación → loop de verificación → entrega), checklists por tipo de tarea, criterios de "terminado" y anti-patrones. Se activa con `/fable-mode`, diciendo "modo fable", o solo, cuando la tarea lo amerita.
@@ -85,6 +87,8 @@ El `SKILL.md` fue generado por Claude Fable 5 en julio de 2026, documentando en 
 ## English
 
 **The reasoning playbook Claude Fable 5 wrote about itself, installable in any Claude Code.** In July 2026, before Fable 5 moved to usage-based pricing, we asked it to document its own way of working: the order of operations behind its answers, its done criteria, and the errors it forbids itself. This repo packages that self-portrait as an installable skill (6-phase protocol, per-task checklists, anti-patterns) plus always-on rules for `~/.claude/CLAUDE.md`.
+
+📖 The full story of the experiment — playbook extraction, A/B iteration rounds, and the blind-judge results — is on the blog (Spanish): [Cloné los hábitos de Fable 5 en un skill open source](https://ketoro.com.uy/blog/clonar-fable-5-habitos-skill/).
 
 **Install (one-liner):**
 
