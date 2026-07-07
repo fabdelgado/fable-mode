@@ -90,11 +90,42 @@ Observations from run 2 that sharpen the picture:
   corrupted subagent transcripts. Reruns produced normal outputs; no task's verdict depended
   on a degraded run.
 
+## Blind judge evaluation — preference parity, discrimination below chance
+
+The self-scored rubric has an obvious weakness: the grader knew which output was which. To
+address it, the 10 pairs from the second validation run were re-evaluated **blind**: each
+pair (user request + both responses) was written to a file with the responses labeled X/Y in
+randomized order, with model-identifying content redacted (one commit-signature trailer, one
+sandbox file path, one trivial typo). Ten independent Claude Sonnet judges — a different
+model tier with no stake in the outcome — each received one pair and had to (a) pick the
+better response or declare a tie, and (b) guess which response came from the frontier-tier
+model, with a confidence level.
+
+Results:
+
+| Metric | Result | Reading |
+|---|---|---|
+| Preference | 4 clone / 3 Fable / 3 ties | Statistical parity at n=10 — a coin flip |
+| Frontier identification | 3/10 correct | Below chance (5/10); judges could not tell which was Fable |
+| Confidence | 6 LOW, 4 MEDIUM, 0 HIGH | No judge was ever confident in their guess |
+
+Two details worth recording: judges' "this reads like the frontier model" heuristics pointed
+at the clone *more often* than at the original, and in one pair the judge preferred the clone
+explicitly for its scope discipline — the skill's own rule winning a blind comparison. Where
+judges did prefer one side, the stated reasons were pair-specific details (a clearer test
+matrix, one extra caveat), not a systematic quality gap in either direction.
+
+Limitations of the blind pass: judges are AI models, not humans; n=10 pairs with one judge
+each; and the tasks are the daily-work regime the skill targets — this measures parity there,
+not on frontier problems.
+
 ## Honest limitations of this evaluation
 
-- **Not a blind benchmark.** Scoring was done by Fable 5 itself against the rubric, not by
-  independent human raters. The rubric criteria are behavioral and checkable (did it verify?
-  did it commit to one recommendation?), which limits but does not eliminate grader bias.
+- **The rubric pass was self-scored.** Convergence scoring was done by Fable 5 itself against
+  the rubric, not by independent human raters. The rubric criteria are behavioral and
+  checkable (did it verify? did it commit to one recommendation?), which limits but does not
+  eliminate grader bias — and the blind judge pass above was added specifically to check this:
+  its parity result is consistent with the self-scored 20/20.
 - **Residual gap:** on open decision questions the candidate runs ~1.3–1.4x longer than the
   reference. Same structure, same conclusion, more words. No other systematic difference
   survived iteration.

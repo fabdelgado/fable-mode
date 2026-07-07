@@ -55,6 +55,27 @@ Tras 3 rondas de iteración (4 brechas detectadas y corregidas), dos corridas de
 
 Este skill codifica **disciplina, no inteligencia extra**. En problemas de frontera, un modelo más capaz sin hábitos le sigue ganando a uno menos capaz con ellos. Lo que la disciplina compra es otra cosa: elimina las fallas evitables — la afirmación sin verificar, el "terminado" que no se probó, el alcance que se infla solo — y esas fallas son la mayoría de los errores del trabajo diario. Además, a diferencia de una suscripción, los hábitos viajan con vos al próximo modelo.
 
+### Estimá tu propio porcentaje
+
+"¿Qué % de Fable me da el clon?" no tiene una sola respuesta: depende de tu mezcla de tareas. Los dos regímenes se comportan distinto:
+
+| Régimen | Qué incluye | Cuánto cierra el clon | Base |
+|---|---|---|---|
+| Trabajo diario | bugs autocontenidos, decisiones técnicas, reviews, escritura, estimaciones | ~95-100% | Medido: 20/20 pares convergidos + evaluación ciega (ver [`eval/`](eval/README.md)) |
+| Cola difícil | cadenas agénticas largas, bugs sutiles multi-archivo, diseño novedoso | ~70-80% | Estimado, no medido — el techo de capacidad no se copia |
+
+Cuenta rápida: **tu % ≈ (proporción de trabajo diario × 0.95) + (proporción de cola difícil × 0.75)**. Un dev de producto típico (90/10) queda en ~93%. Un perfil pesado en agentes largos (50/50) queda en ~85%, y ahí la brecha se siente.
+
+### Cuándo pagar créditos por el original
+
+Regla de escalada, en orden:
+
+1. **Por defecto, el clon.** Todo el trabajo diario, que es la gran mayoría del volumen.
+2. **Escalá al original cuando el clon falló dos veces en el mismo problema** con el loop de verificación activado. Ese es el señalador empírico de que estás contra el techo del modelo, no contra un hábito faltante — más iteraciones del clon no lo van a resolver.
+3. **Arrancá directo con el original** solo cuando el costo de un error supera con claridad el costo de los créditos: agente crítico en producción, deadline caro, decisión difícil de revertir. Pagás el pico, no la suscripción mental de "todo con el mejor modelo".
+
+La trampa a evitar es la inversa: usar el original para trabajo rutinario "por las dudas". A ~2x el precio y consumiendo límites al doble de velocidad, eso es pagar techo para tareas de piso.
+
 ## Origen
 
 El `SKILL.md` fue generado por Claude Fable 5 en julio de 2026, documentando en primera persona su propio proceso de razonamiento — sus fases de trabajo, sus criterios de terminado y sus anti-patrones — como instrucciones directas para el modelo que lo lea. El historial de este repo es la evidencia.
@@ -74,6 +95,8 @@ curl -fsSL https://raw.githubusercontent.com/fabdelgado/fable-mode/main/install.
 **Or as a native plugin:** `/plugin marketplace add fabdelgado/fable-mode` → `/plugin install fable-mode@fable-mode`, then paste [`templates/CLAUDE-rules.md`](templates/CLAUDE-rules.md) into your `~/.claude/CLAUDE.md`.
 
 Trigger with `/fable-mode` or by saying "fable mode". What to expect: this encodes discipline, not extra intelligence — it eliminates the avoidable failures (unverified claims, false completions, scope drift) that make up most everyday errors, and the habits transfer to whatever model you run next.
+
+**Estimate your own percentage:** the clone closes ~95-100% of the gap on daily work (measured) and an estimated ~70-80% on frontier work (long agentic chains, novel design — capability ceilings don't copy). Your number ≈ daily share × 0.95 + frontier share × 0.75. **When to pay for the original:** default to the clone; escalate to Fable credits when the clone fails twice on the same problem with the verification loop on, or start with the original when an error clearly costs more than the credits.
 
 **A/B validated:** the skill was iterated against native Fable 5 outputs until convergence — Opus 4.8 + skill vs. Fable 5, same prompts, independent contexts, 8-criterion behavioral rubric. Two validation runs on 20 distinct tasks (Python/JS/SQL/bash debugging, technical decisions, security review, false premises, estimation, executive writing, scope traps): **20/20 task pairs converged**. Method, iteration history, and honest limitations in [`eval/README.md`](eval/README.md).
 
