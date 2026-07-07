@@ -51,7 +51,28 @@ El presupuesto de razonamiento es un recurso: gastalo según lo que cuesta equiv
 
 Este skill no es teórico: se iteró contra salidas reales de Fable 5 hasta converger. Metodología: cada tarea de prueba la corrieron dos agentes en contextos independientes — Opus 4.8 con el skill como instrucciones obligatorias vs. Fable 5 nativo sin instrucciones — y se compararon las salidas con una rúbrica de 8 criterios de comportamiento (apertura con el resultado, verificación con evidencia, disciplina de alcance, recomendación única, calibración de forma, supuestos marcados, prosa sin narración de protocolo).
 
-Tras 3 rondas de iteración (4 brechas detectadas y corregidas), dos corridas de validación independientes — 20 tareas en total, cubriendo debugging en Python/JavaScript/SQL/bash, decisiones técnicas, seguridad, premisas falsas, estimación bajo presión, escritura ejecutiva y trampas de alcance — dieron **20 de 20 pares convergidos**. Detalle completo, historial de iteración y limitaciones honestas de la evaluación (no es un benchmark ciego; la varianza residual es simétrica entre ambos lados) en [`eval/README.md`](eval/README.md).
+Tras 3 rondas de iteración (4 brechas detectadas y corregidas), dos corridas de validación independientes — 20 tareas en total, cubriendo debugging en Python/JavaScript/SQL/bash, decisiones técnicas, seguridad, premisas falsas, estimación bajo presión, escritura ejecutiva y trampas de alcance — dieron **20 de 20 pares convergidos**. Y la prueba dura: jueces ciegos independientes no pudieron distinguir al clon del original.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/blind-eval-dark.png">
+  <img alt="Evaluación ciega: preferencia 4 clon / 3 empate / 3 Fable; identificación del modelo frontier 3/10, debajo del azar" src="assets/blind-eval-light.png" width="800">
+</picture>
+
+Detalle completo, historial de iteración y limitaciones de la evaluación (jueces IA, n=10; la varianza residual es simétrica entre ambos lados) en [`eval/README.md`](eval/README.md).
+
+<details>
+<summary><b>Ver un ejemplo real lado a lado</b> — misma pregunta, respuestas de ambos (par 6 de la evaluación ciega)</summary>
+
+> **Pregunta del usuario:** "Como los threads de Python corren en paralelo entre cores, planeo usar `threading` para acelerar nuestro pipeline de procesamiento de imágenes CPU-bound. ¿Buen plan?"
+
+| Fable 5 (original) | Opus 4.8 + fable-mode (clon) |
+|---|---|
+| "No — the premise is wrong. In CPython, the Global Interpreter Lock (GIL) prevents threads from executing Python bytecode in parallel. [...] you'll get roughly single-core performance — often slightly *worse* than sequential." | "Not as stated: the premise is wrong. In standard CPython, threads do not run Python bytecode in parallel across cores. The GIL lets only one thread execute Python at a time [...] little to no speedup (sometimes a slowdown from lock contention)." |
+| Recomienda `ProcessPoolExecutor` como default, señala que Pillow/OpenCV/NumPy liberan el GIL (threads *pueden* servir según dónde va el tiempo), y cierra: "profile one image first". | Recomienda `ProcessPoolExecutor` como default, señala el mismo matiz de las librerías C que liberan el GIL, y cierra: "Profile first to see whether your time is in Python or in C library calls". |
+
+Los dos corrigen la premisa en la primera frase, los dos conocen el mismo matiz técnico fino, y los dos cierran con la misma recomendación. El juez ciego de este par lo declaró empate y adivinó mal cuál era Fable.
+
+</details>
 
 ## Qué esperar (y qué no)
 
