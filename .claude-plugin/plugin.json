@@ -1,12 +1,18 @@
 {
   "name": "fable-mode",
   "description": "Emulates the reasoning habits of Claude Fable 5: plan before executing, evidence over memory, self-refutation, iterative verification until it passes, lead with the result, and scope discipline.",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "author": {
     "name": "Fabian Delgado"
   },
   "homepage": "https://github.com/fabdelgado/fable-mode",
   "repository": "https://github.com/fabdelgado/fable-mode",
   "license": "MIT",
-  "keywords": ["reasoning", "fable", "quality", "verification", "playbook"]
+  "keywords": [
+    "reasoning",
+    "fable",
+    "quality",
+    "verification",
+    "playbook"
+  ]
 }
